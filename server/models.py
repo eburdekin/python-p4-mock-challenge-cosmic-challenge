@@ -90,12 +90,18 @@ class Mission(db.Model, SerializerMixin):
     def validate_scientist_id(self, key, value):
         if not value:
             raise ValueError("Mission must have a scientist")
+        scientist = Scientist.query.filter_by(id=value).first()
+        if not scientist:
+            raise ValueError("Invalid camper_id")
         return value
     
     @validates("planet_id")
     def validate_planet_id(self, key, value):
         if not value:
             raise ValueError("Mission must have a planet")
+        planet = Planet.query.filter_by(id=value).first()
+        if not planet:
+            raise ValueError("Invalid camper_id")
         return value
 
 
